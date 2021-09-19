@@ -38,9 +38,8 @@ class YoloLoss(nn.Module):
         exists_box = target[..., 20].unsqueeze   # identity_obj_i : represent the presence of a object in the bbox
                                                  # there may be background in which case the value will be 0
 
-        # ======================== #
-        #    FOR BOX COORDINATES   #
-        # ======================== #
+        
+        """BOX-COORDINATE LOSS"""
         
         # calculate the loss only if there is an object in the bbox 
         # i.e, exists_box = 1 (no background)
@@ -59,10 +58,8 @@ class YoloLoss(nn.Module):
                 torch.flatten(box_target, end_dim=-2)
                 )
         
+        """OBJECT LOSS"""
 
-        # ======================= #
-        #     FOR OBJECT LOSS     #
-        # ======================= #
         pred_box = exists_box * (
                 bestbox * predictions[25:26] + (1 - bestbox) * predictions[20:21]
                 )
@@ -71,10 +68,8 @@ class YoloLoss(nn.Module):
                 torch.flatten(target[..., 20:21])
                 )
 
+        """NO OBJECT LOSS"""
 
-        # ====================== #
-        #   FOR NO-OBJECT LOSS   #
-        # ====================== #
         # (N, S, S, 1) -> (N, S*S)
         no_obj_loss = self.mse(
                 torch.flatten((1 - exists_box) * predictions[..., 20:21], start_dim=1),
@@ -86,10 +81,8 @@ class YoloLoss(nn.Module):
                 torch.flatten((1 - exists_box) * target[20:21], start_dim=1)
                 )
         
+        """CLASS LOSS"""
 
-        # ====================== #
-        #     FOR CLASS LOSS     #
-        # ====================== #
         # (N, S, S, 20) -> (N*S*S, 20)
         class_loss = self.mse(
                 torch.flatten(exists_box * predictions[..., :20], end_dim=-2),

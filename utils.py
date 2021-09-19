@@ -113,26 +113,6 @@ def mean_average_precision(
     return sum(average_precisions) / len(average_precisions)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def plot_bboxes(image, boxes):
     """Plots predicted bounding boxes on the image"""
     im = np.array(image)
