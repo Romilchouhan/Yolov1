@@ -27,3 +27,5 @@ These types of detectors perform the region finding and regression to find the b
 e.g: **SSD** and **YOLO** are the single stage detectors.
 <br>Read the paper here: [Yolov1](https://arxiv.org/pdf/1506.02640v1)
 
+<br>YOLO is so fast that it can run in real time on a video, as seen in Joseph Redmon's (author of YOLO paper) [video](https://www.youtube.com/watch?v=MPU2HistivI).
+<br>I have also prepared the summary of the paper [YOLOv1_summary](https://github.com/Romilchouhan/Yolov1/blob/main/YOLOv1_summary.pdf)
