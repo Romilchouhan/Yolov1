@@ -204,7 +204,7 @@ def convert_cellboxes(predictions, S=7):
             (predictions[..., 20].unsqueeze(0), predictions[..., 25].unsqueeze(0)), dim=0
             )
     best_box = scores.argmax(0).unsqueeze(-1)
-    best_boxes = bboxes * (1 -  best_box) + best_box * bboxes1
+    best_boxes = bboxes1 * (1 -  best_box) + best_box * bboxes1
     cell_indices = torch.arange(7).repeat(batch_size, 7, 1).unsqueeze(-1)
     x = 1 / S * (best_boxes[..., :1] + cell_indices)
     y = 1 / S * (best_boxes[..., 1:2] + cell_indices.permute(0, 2, 1, 3))

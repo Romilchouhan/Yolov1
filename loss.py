@@ -46,7 +46,7 @@ class YoloLoss(nn.Module):
         box_predictions = exists_box * (
                 bestbox * predictions[26:30] + (1 - bestbox) * predictions[21:25]
                 )
-        box_target = exists_box * box_target[21:25]
+        box_target = exists_box * target[21:25]
 
         # take the square root of the width and height of 
         # the predicted and target bounding boxes
